@@ -1,0 +1,40 @@
+# VirtualBox & Oracle Linux 9 Setup
+
+## Step-by-Step
+
+### 1. Download VirtualBox
+- Source: virtualbox.org
+- Version: 7.x for Windows
+- Installed: Yes 
+
+### 2. Download Oracle Linux 9 ISO
+- Source: yum.oracle.com/oracle-linux-isos.html
+- File: Oracle Linux 9 (x86_64) Full ISO
+- Size: ~9 GB
+- Downloaded: Yes 
+
+### 3. Create VM in VirtualBox
+
+**Settings:**
+
+| Setting | Value |
+|---------|-------|
+| Name | Oracle-Linux-9-Lab |
+| Type | Linux |
+| Version | Red Hat (64-bit) |
+| RAM | 2048 MB |
+| CPU | 2 cores |
+| Disk | 20 GB |
+
+**Network:** NAT (default)
+
+### 4. Installation Steps
+- Language: English
+- Software Selection: Minimal Install (for learning)
+- Network: Enabled
+- Root password: [set but not saved here]
+- User created: student
+
+### 5. First Login
+- Username: student
+- Password: [your password]
