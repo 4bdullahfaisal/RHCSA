@@ -21,7 +21,6 @@
 |---------|-------|
 | Name | Oracle-Linux-9-Lab |
 | Type | Linux |
-| Version | Red Hat (64-bit) |
 | RAM | 2048 MB |
 | CPU | 2 cores |
 | Disk | 20 GB |
