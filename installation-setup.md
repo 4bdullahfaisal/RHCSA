@@ -1,4 +1,4 @@
-# VirtualBox & Oracle Linux 9 Setup
+# Module 1 VirtualBox & Oracle Linux 9 Setup
 
 ## Step-by-Step
 
