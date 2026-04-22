@@ -1,8 +1,8 @@
-# Linux Commands & Practice
-  
-**VM:** Oracle Linux 9 on VirtualBox
-
+# Module 2 Essentials Tools
 ---
+**VM:** Oracle Linux 9 on VirtualBox
+---
+## Linux Commands & Practice
 
 **head** shows the first lines of a file. `head /etc/passwd` shows the first 10 lines. `head -n 5 /etc/passwd` shows only the first 5 lines.
 
