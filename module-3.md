@@ -183,15 +183,32 @@ sudo groupdel developers — Delete group (cannot delete if it's any user's prim
 
 ---
 
-## Default Useradd Settings
+## Commands Summary 
+```
+#Users
 
-useradd -D
+whoami — Current user  
+id — User and group IDs  
+who — Logged in users  
+sudo useradd name — Create user  
+sudo passwd name — Set password  
+sudo usermod options name — Modify user  
+sudo userdel -r name — Delete user with home dir  
+su - name — Switch user
 
-Shows system defaults:
-GROUP=100 — Default group for new users  
-HOME=/home — Home directory base path  
-INACTIVE=-1 — No password expiry by default  
-EXPIRE= — No expiration date set  
-SHELL=/bin/bash — Default shell  
-SKEL=/etc/skel — Skeleton directory for default files  
-CREATE_MAIL_SPOOL=yes — Create mail spool in /var/mail
+#Groups
+
+groups — Show your groups  
+groups username — Show user's groups  
+cat /etc/group — List all groups  
+sudo groupadd name — Create group  
+sudo groupadd -g GID name — Create with specific GID  
+sudo usermod -aG group user — Add user to group  
+sudo usermod -aG g1,g2 user — Add to multiple groups  
+sudo usermod -g group user — Change primary group  
+sudo gpasswd -d user group — Remove user from group  
+sudo groupmod -n new old — Rename group  
+sudo groupmod -g GID name — Change GID  
+sudo groupdel name — Delete group
+```
+---
