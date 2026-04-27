@@ -124,33 +124,15 @@ systemctl list-unit-files --type=service      # List all services with enable st
 
 systemctl status sshd
 
-sudo systemctl stop sshd
+systemctl stop sshd
 
 systemctl status sshd
 
-sudo systemctl start sshd
+systemctl start sshd
 
-sudo systemctl restart sshd
+systemctl restart sshd
 
 systemctl is-enabled sshd
-
-### Practice with Apache (install first)
-
-sudo yum install httpd -y
-
-systemctl status httpd
-
-sudo systemctl start httpd
-
-systemctl status httpd
-
-sudo systemctl enable httpd
-
-systemctl is-enabled httpd
-
-sudo systemctl stop httpd
-
-sudo yum remove httpd -y
 
 ---
 
