@@ -117,19 +117,28 @@ Permissions: r (read), w (write), x (execute), - (none)
 ## Commands Summary
 
 Sticky Bit: `chmod +t directory`
+
 SUID: `chmod u+s file`
+
 SGID: `chmod g+s file` or `chmod 2775 directory`
 
 ACL:
 `getfacl file`
+
 `setfacl -m u:user:perms file`
+
 `setfacl -m g:group:perms file`
+
 `setfacl -x u:user file`
+
 `setfacl -b file`
 
 Special chmod numbers:
-4755 - SUID
-2755 - SGID
-1777 - Sticky Bit
+
+`4755 - SUID`
+
+`2755 - SGID`
+
+`1777 - Sticky Bit`
 
 ---
