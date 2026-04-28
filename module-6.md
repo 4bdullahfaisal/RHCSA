@@ -30,19 +30,10 @@ gpgcheck=1
 gpgkey=http://example.com/path/to/gpg-key
 ```
 ### Basic Repo Commands
-dnf repolist                 # List enabled repos
-
-sudo dnf clean all           # Clear cache
-
-sudo dnf makecache           # Rebuild cache
 
 sudo dnf config-manager --set-enabled repo-name   # Enable repo
 
 sudo dnf config-manager --set-disabled repo-name  # Disable repo
-
-
-### Add EPEL Repository
-sudo dnf install epel-release -y
 
 ---
 
