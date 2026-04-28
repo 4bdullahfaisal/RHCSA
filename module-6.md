@@ -30,8 +30,6 @@ gpgkey=http://example.com/path/to/gpg-key
 ### Basic Repo Commands
 dnf repolist                 # List enabled repos
 
-dnf repolist all             # List all repos
-
 sudo dnf clean all           # Clear cache
 
 sudo dnf makecache           # Rebuild cache
@@ -62,25 +60,9 @@ sudo yum install package -y  # Install a package
 
 sudo yum update package      # Update a specific package
 
-sudo yum update -y           # Update all packages
-
-sudo yum remove package -y   # Remove a package
-
-yum list installed           # List installed packages
-
-yum list available           # List available packages
-
-yum check-update             # Check for available updates
-
-yum provides /path/to/file   # Find which package provides a file
-
 ### Group Packages
 yum group list               # List available package groups
 sudo yum group install "group name" -y   # Install a group
-
-### Cache Management
-sudo yum clean all           # Clear all cache
-sudo yum makecache           # Rebuild cache
 
 ### Practice Example
 sudo yum install httpd -y
@@ -115,10 +97,6 @@ sudo systemctl disable service # Disable on boot
 
 systemctl is-enabled service   # Check if enabled on boot
 
-systemctl list-units --type=service           # List all active services
-
-systemctl list-unit-files --type=service      # List all services with enable status
-
 
 ### Practice with SSH
 
@@ -130,8 +108,6 @@ systemctl status sshd
 
 systemctl start sshd
 
-systemctl restart sshd
-
 systemctl is-enabled sshd
 
 ---
@@ -140,14 +116,10 @@ systemctl is-enabled sshd
 ```
 # Repositories
 dnf repolist
-dnf repolist all
-sudo dnf clean all
-sudo dnf makecache
 ls /etc/yum.repos.d/
 
 # Package Management
 yum search <package>
-yum info <package>
 sudo yum install <package>
 sudo yum update <package>
 sudo yum remove <package>
@@ -157,7 +129,6 @@ yum list installed
 systemctl status <service>
 sudo systemctl start <service>
 sudo systemctl stop <service>
-sudo systemctl restart <service>
 sudo systemctl enable <service>
 sudo systemctl disable <service>
 systemctl is-enabled <service>
