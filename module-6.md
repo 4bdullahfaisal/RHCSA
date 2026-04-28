@@ -15,7 +15,9 @@ View existing repo files:
 ls -la /etc/yum.repos.d/
 
 ### View Repositories
+
 dnf repolist           # List enabled repos
+
 dnf repolist all       # List all repos (enabled + disabled)
 
 ### .repo File Structure
@@ -65,8 +67,11 @@ yum group list               # List available package groups
 sudo yum group install "group name" -y   # Install a group
 
 ### Practice Example
+
 sudo yum install httpd -y
+
 yum list installed | grep httpd
+
 sudo yum remove httpd -y
 
 ---
