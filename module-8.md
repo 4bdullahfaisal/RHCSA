@@ -191,9 +191,3 @@ Field | Meaning
 6 | Filesystem check order (0 = skip)
 
 ---
-
----
-
-**All commands practiced in Oracle Linux VM inside VirtualBox.**
-
-End of Day 8
