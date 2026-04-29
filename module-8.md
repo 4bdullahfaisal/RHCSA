@@ -1,4 +1,4 @@
-# Module 8 File System — Managing Storage (Disks, Partitions, Mounting)
+# Module 8 File System — Managing Storage (Disks, Partitions, Mounting, Swap, LVM)
 **Environment:** Oracle Linux 9 on VirtualBox
 
 ---
@@ -160,34 +160,220 @@ sudo umount /dev/sdb1
 
 ---
 
+## Swap Partition
+
+Swap is virtual memory used when RAM is full.
+
+### Check Current Swap
+
+swapon --show
+
+free -h
+
+### Create Swap Partition (type 82)
+
+sudo fdisk /dev/sdb
+
+n - new partition
+
+p - primary
+
+1 - partition number
+
+Enter - default first sector
+
+Enter - default sector
+
+t - change type
+
+82 - Linux swap
+
+w - write
+
+### Format as Swap
+
+sudo mkswap /dev/sdb1
+
+### Enable Swap
+
+sudo swapon /dev/sdb1
+
+### Verify
+
+swapon --show
+
+free -h
+
+### Make Swap Permanent (fstab)
+
+sudo blkid /dev/sdb1
+
+sudo nano /etc/fstab
+
+Add: UUID=your-uuid none swap sw 0 0
+
+### Test
+
+sudo swapon -a
+
+swapon --show
+
+### Disable Swap
+
+sudo swapoff /dev/sdb1
+
+### Remove Swap Partition
+
+sudo swapoff /dev/sdb1
+
+sudo fdisk /dev/sdb
+
+d → 1 → w
+
+---
+
+## LVM (Logical Volume Manager)
+
+LVM allows flexible resizing without repartitioning.
+
+### LVM Layers
+
+Physical Volume (PV) - Raw disk/partition
+
+Volume Group (VG) - Pool of storage
+
+Logical Volume (LV) - Usable partition
+
+### Install LVM
+
+sudo dnf install lvm2 -y
+
+### Prepare Partition (type 8e for LVM)
+
+sudo fdisk /dev/sdb
+
+n → p → 1 → Enter → Enter
+
+t → 8e (Linux LVM)
+
+w
+
+### Create Physical Volume (PV)
+
+sudo pvcreate /dev/sdb1
+
+sudo pvs
+
+sudo pvdisplay
+
+### Create Volume Group (VG)
+
+sudo vgcreate vg_data /dev/sdb1
+
+sudo vgs
+
+sudo vgdisplay vg_data
+
+### Create Logical Volume (LV)
+
+sudo lvcreate -L 500M -n lv_data vg_data
+
+sudo lvs
+
+sudo lvdisplay
+
+LV location: /dev/vg_data/lv_data
+
+### Format and Mount LV
+
+sudo mkfs.ext4 /dev/vg_data/lv_data
+
+sudo mkdir /mnt/lvm_data
+
+sudo mount /dev/vg_data/lv_data /mnt/lvm_data
+
+df -h | grep lvm_data
+
+### Extend Logical Volume
+
+sudo lvextend -L +200M /dev/vg_data/lv_data
+
+sudo resize2fs /dev/vg_data/lv_data
+
+df -h | grep lvm_data
+
+### Permanent Mount for LV
+
+sudo blkid /dev/vg_data/lv_data
+
+sudo nano /etc/fstab
+
+Add: UUID=your-uuid /mnt/lvm_data ext4 defaults 0 0
+
+sudo mount -a
+
+df -h | grep lvm_data
+
+### Remove LVM (Cleanup)
+
+sudo umount /mnt/lvm_data
+
+sudo lvremove /dev/vg_data/lv_data
+
+sudo vgremove vg_data
+
+sudo pvremove /dev/sdb1
+
+---
+
 ## Commands Summary
 
 Task | Command
 -----|--------
-List disks | `lsblk` or `fdisk -l`
-Partition | `sudo fdisk /dev/sdb`
+List disks | `lsblk`
+List partitions | `fdisk -l`
+Partition disk | `sudo fdisk /dev/sdb`
 Format ext4 | `sudo mkfs.ext4 /dev/sdb1`
 Format xfs | `sudo mkfs.xfs /dev/sdb1`
 Create mount point | `sudo mkdir /mnt/data`
 Mount | `sudo mount /dev/sdb1 /mnt/data`
+Unmount | `sudo umount /mnt/data`
 Check mounts | `df -h`
 Get UUID | `sudo blkid /dev/sdb1`
 Edit fstab | `sudo nano /etc/fstab`
 Test fstab | `sudo mount -a`
-Unmount | `sudo umount /mnt/data`
 Delete partition | `sudo fdisk /dev/sdb` → d → w
+
+## Swap Commands Summary
+
+| Task | Command |
+|------|---------|
+| Check swap status | `swapon --show` |
+| Check memory + swap | `free -h` |
+| Create swap partition | `sudo fdisk /dev/sdb` (set type to `82`) |
+| Format as swap | `sudo mkswap /dev/sdb1` |
+| Enable swap | `sudo swapon /dev/sdb1` |
+| Disable swap | `sudo swapoff /dev/sdb1` |
+| Get UUID for fstab | `sudo blkid /dev/sdb1` |
+| Add to /etc/fstab | `UUID=... none swap sw 0 0` |
+| Test fstab | `sudo swapon -a` |
+| Remove swap partition | `sudo swapoff /dev/sdb1` then `sudo fdisk /dev/sdb` → `d` → `w` |
 
 ---
 
-## /etc/fstab Fields Explained
+## LVM Commands Summary
 
-Field | Meaning
-------|--------
-1 | Device (UUID or /dev/sdb1)
-2 | Mount point (e.g., /mnt/data)
-3 | Filesystem type (ext4, xfs)
-4 | Options (defaults)
-5 | Dump backup (0 = no)
-6 | Filesystem check order (0 = skip)
-
+Task | Command
+-----|--------
+Create PV | `pvcreate /dev/sdb1`
+List PV | `pvs` or `pvdisplay`
+Create VG | `vgcreate vg_name /dev/sdb1`
+List VG | `vgs` or `vgdisplay`
+Create LV | `lvcreate -L size -n lv_name vg_name`
+List LV | `lvs` or `lvdisplay`
+Extend LV | `lvextend -L +size /dev/vg/lv`
+Resize ext4 FS | `resize2fs /dev/vg/lv`
+Remove LV | `lvremove /dev/vg/lv`
+Remove VG | `vgremove vg_name`
+Remove PV | `pvremove /dev/sdb1`
 ---
