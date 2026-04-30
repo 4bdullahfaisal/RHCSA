@@ -1,4 +1,4 @@
-# Module 4 Process Management & Scheduling Tasks
+# Module 4 Process Management — Processes & Scheduling Tasks
 **Environment:** Oracle Linux 9 on VirtualBox
 ---
 
