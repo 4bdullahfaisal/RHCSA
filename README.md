@@ -1,7 +1,7 @@
 # RHCSA
 ---
 
-## Topics Covered
+## Topics Overview
 - Installation Setup
 - Essentials Tools
 - User & Group Management
